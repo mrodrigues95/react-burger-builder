@@ -1,11 +1,10 @@
 import React, { Component } from 'react';
 
-import Aux from '../../hoc/Auxiliary';
-import classes from './Layout.module.css';
-import Toolbar from '../Navigation/Toolbar/Toolbar';
-import SideDrawer from '../Navigation/SideDrawer/SideDrawer';
+import Aux from '../Aux/Aux';
+import classes from './Layout.css';
+import Toolbar from '../../components/Navigation/Toolbar/Toolbar';
+import SideDrawer from '../../components/Navigation/SideDrawer/SideDrawer';
 
-// This acts as a wrapper for our core content displayed on the screen.
 class Layout extends Component {
   state = {
     showSideDrawer: false,
@@ -15,7 +14,6 @@ class Layout extends Component {
     this.setState({ showSideDrawer: false });
   };
 
-  // Set showSideDrawer to true if currently false, and vice versa.
   sideDrawerToggleHandler = () => {
     this.setState((prevState) => {
       return { showSideDrawer: !prevState.showSideDrawer };
