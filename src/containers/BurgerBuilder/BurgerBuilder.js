@@ -118,7 +118,26 @@ class BurgerBuilder extends Component {
     //     this.setState({ loading: false, purchasing: false });
     //   })
     //   .catch((error) => this.setState({ loading: false, purchasing: false }));
-    this.props.history.push('/checkout'); // render the checkout page.
+
+    // Render the checkout page.
+    const queryParams = [];
+    for (let i in this.state.ingredients) {
+      // Encode the elements so they can be used in the URL.
+      // E.g. removing white space and so on.
+      queryParams.push(
+        encodeURIComponent(i) +
+          '=' +
+          encodeURIComponent(this.state.ingredients[i])
+      );
+    }
+    // Form the final query string.
+    // Example: bacon=1&cheese=1&meat=0&salad=1
+    const queryString = queryParams.join('&');
+
+    this.props.history.push({
+      pathname: '/checkout',
+      search: '?' + queryString,
+    });
   };
 
   render() {
@@ -131,7 +150,11 @@ class BurgerBuilder extends Component {
 
     // Check if ingredients have been loaded from Firebase.
     let orderSummary = null;
-    let burger = this.state.error? <p>Ingredients can't be loaded!</p> : <Spinner />;
+    let burger = this.state.error ? (
+      <p>Ingredients can't be loaded!</p>
+    ) : (
+      <Spinner />
+    );
 
     if (this.state.ingredients) {
       burger = (
